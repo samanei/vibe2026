@@ -50,9 +50,20 @@ export interface Vote {
 
 export type InquiryStatus = '답변 대기' | '검토 중' | '답변 완료';
 
+export type InquiryCategory =
+  | '장학금'
+  | '학비'
+  | '휴학'
+  | '복학'
+  | '행사'
+  | '부스 신청'
+  | '학생회 운영'
+  | '제보'
+  | '기타';
+
 export interface Inquiry {
   id: number;
-  category: string;
+  category: InquiryCategory;
   title: string;
   content: string;
   department: string;
@@ -60,6 +71,18 @@ export interface Inquiry {
   reply: string | null;
   created_at: string;
   replied_at: string | null;
+}
+
+export interface InquiryStats {
+  total: number;
+  done: number;
+  waiting: number;
+  reviewing: number;
+}
+
+export interface MyInquiriesResponse {
+  data: Inquiry[];
+  stats: InquiryStats;
 }
 
 export interface ApiResponse<T> {

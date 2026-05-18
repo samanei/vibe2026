@@ -9,6 +9,8 @@ import AdminAgendaPage from './pages/AdminAgendaPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import AdminInquiryPage from './pages/AdminInquiryPage';
 import AdminLoginPage from './pages/AdminLoginPage';
+import InquiryNewPage from './pages/InquiryNewPage';
+import MyInquiriesPage from './pages/MyInquiriesPage';
 
 function RequireAdmin({ children }: { children: ReactNode }) {
   if (!isAdminAuthenticated()) {
@@ -33,8 +35,8 @@ export default function App() {
           <Route path="/agendas/new" element={<AgendaNewPage />} />
           <Route path="/agendas/:id" element={<AgendaDetailPage />} />
           {/* 비공개 문의 */}
-          <Route path="/inquiries/new" element={<div className="p-8 text-gray-400">문의 작성 페이지 (구현 예정)</div>} />
-          <Route path="/my-inquiries" element={<div className="p-8 text-gray-400">내 문의함 페이지 (구현 예정)</div>} />
+          <Route path="/inquiries/new" element={<InquiryNewPage />} />
+          <Route path="/my-inquiries" element={<MyInquiriesPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

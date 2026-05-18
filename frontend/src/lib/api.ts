@@ -5,6 +5,8 @@ import type {
   AgendaDetail,
   AgendaListResponse,
   ApiResponse,
+  InquiryCategory,
+  MyInquiriesResponse,
   VoteType,
   WeeklyAgendaStats,
 } from '../types';
@@ -37,6 +39,14 @@ export interface CreateAgendaPayload {
   department: string;
 }
 
+export interface CreateInquiryPayload {
+  category: InquiryCategory;
+  title: string;
+  content: string;
+  department: string;
+  user_token: string;
+}
+
 export async function getAgendas(params: AgendaListParams) {
   const { data } = await api.get<AgendaListResponse>('/agendas', { params });
   return data;
@@ -65,6 +75,18 @@ export async function voteAgenda(id: number, voteType: VoteType, userToken: stri
 export async function getWeeklyAgendaStats() {
   const { data } = await api.get<ApiResponse<WeeklyAgendaStats>>('/agendas/stats/weekly');
   return data.data;
+}
+
+export async function createInquiry(payload: CreateInquiryPayload) {
+  const { data } = await api.post<ApiResponse<{ id: number }>>('/inquiries', payload);
+  return data;
+}
+
+export async function getMyInquiries(userToken: string) {
+  const { data } = await api.get<MyInquiriesResponse>('/inquiries/my', {
+    params: { user_token: userToken },
+  });
+  return data;
 }
 
 export type { Agenda };

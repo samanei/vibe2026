@@ -34,3 +34,17 @@ export const AGENDA_TIMELINE_STEPS = [
 export const HOT_THRESHOLD = 10;
 
 export const PAGE_SIZE = 10;
+
+export const INQUIRY_CATEGORIES = [
+  '장학금',
+  '학비',
+  '휴학',
+  '복학',
+  '행사',
+  '부스 신청',
+  '학생회 운영',
+  '제보',
+  '기타',
+] as const;
+
+export const INQUIRY_STATUS_FILTERS = ['전체', '답변 대기', '검토 중', '답변 완료'] as const;
