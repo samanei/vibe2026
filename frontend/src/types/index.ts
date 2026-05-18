@@ -113,3 +113,26 @@ export interface AdminDashboardData {
     inquiry_categories: AdminChartRow[];
   };
 }
+
+export interface AdminAgenda {
+  id: number;
+  title: string;
+  category: AgendaCategory | string;
+  department: string;
+  status: AgendaStatus;
+  agree_count: number;
+  disagree_count: number;
+  agreement_rate: number;
+  created_at: string;
+}
+
+export interface AdminAgendaStatusCount {
+  status: AgendaStatus | '전체';
+  label: string;
+  value: number;
+}
+
+export interface AdminAgendaListResponse {
+  data: AdminAgenda[];
+  status_counts: AdminAgendaStatusCount[];
+}

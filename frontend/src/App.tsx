@@ -1,15 +1,17 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import type { ReactNode } from 'react';
 import Layout from './components/layout/Layout';
 import { isAdminAuthenticated } from './lib/adminAuth';
+import AdminAgendaPage from './pages/AdminAgendaPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 
-function RequireAdmin() {
+function RequireAdmin({ children }: { children: ReactNode }) {
   if (!isAdminAuthenticated()) {
     return <Navigate to="/admin/login" replace />;
   }
 
-  return <AdminDashboardPage />;
+  return children;
 }
 
 export default function App() {
@@ -17,7 +19,9 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/admin/login" element={<AdminLoginPage />} />
-        <Route path="/admin" element={<RequireAdmin />} />
+        <Route path="/admin" element={<RequireAdmin><AdminDashboardPage /></RequireAdmin>} />
+        <Route path="/admin/agendas" element={<RequireAdmin><AdminAgendaPage /></RequireAdmin>} />
+        <Route path="/admin/inquiries" element={<RequireAdmin><AdminDashboardPage /></RequireAdmin>} />
         <Route element={<Layout />}>
           <Route index element={<Navigate to="/agendas" replace />} />
           {/* 공개 안건 */}
