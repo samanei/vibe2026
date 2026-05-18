@@ -27,7 +27,7 @@ function formatDate(value: string) {
 
 function CategoryPill({ category }: { category: string }) {
   return (
-    <span className="inline-flex items-center rounded-md border border-[#dedbd4] bg-[#f4f2ed] px-2.5 py-1 text-xs font-semibold text-[#6d6960]">
+    <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-medium text-slate-600">
       {category}
     </span>
   );
@@ -102,19 +102,19 @@ export default function AdminAgendaPage() {
   const emptyMessage = keyword.trim() ? '검색 결과가 없습니다.' : '등록된 안건이 없습니다.';
 
   return (
-    <div className="min-h-screen bg-[#f7f6f2] text-[#1f1d1a]">
+    <div className="min-h-screen bg-slate-50">
       <AdminGNB />
       <main className="max-w-7xl mx-auto px-6 py-10 lg:px-10 lg:py-12">
         <div className="flex items-center justify-between gap-6">
-          <h1 className="text-3xl font-extrabold tracking-tight text-[#171613]">안건 관리</h1>
-          <label className="relative w-[280px] shrink-0 md:w-[360px]">
+          <h1 className="text-2xl font-bold text-slate-900">안건 관리</h1>
+          <label className="relative w-[280px] md:w-[360px] shrink-0">
             <span className="absolute left-4 top-1/2 -translate-y-1/2">
               <SearchIcon />
             </span>
             <input
               value={keyword}
               onChange={(event) => setKeyword(event.target.value)}
-              className="h-12 w-full rounded-lg border border-[#d8d5cf] bg-white pl-12 pr-4 text-sm font-medium text-gray-800 shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              className="h-11 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-sm text-slate-800 shadow-sm outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50 transition"
               placeholder="안건 검색..."
             />
           </label>
@@ -129,10 +129,10 @@ export default function AdminAgendaPage() {
                 key={count.status}
                 type="button"
                 onClick={() => setActiveStatus(count.status)}
-                className={`h-10 rounded-full border px-5 text-sm font-semibold shadow-sm transition ${
+                className={`h-9 rounded-full border px-5 text-sm font-semibold transition ${
                   isActive
-                    ? 'border-[#191815] bg-[#191815] text-white'
-                    : 'border-[#dedbd4] bg-white text-[#767168] hover:border-[#c8c3ba] hover:text-[#1f1d1a]'
+                    ? 'border-slate-900 bg-slate-900 text-white'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 transition'
                 }`}
               >
                 {count.label} ({count.value})
@@ -141,7 +141,7 @@ export default function AdminAgendaPage() {
           })}
         </div>
 
-        <section className="mt-6 overflow-hidden rounded-lg border border-[#dedbd4] bg-white shadow-sm">
+        <section className="mt-6 overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm">
           <table className="w-full table-fixed border-collapse">
             <colgroup>
               <col className="w-[46%]" />
@@ -152,7 +152,7 @@ export default function AdminAgendaPage() {
               <col className="w-[17%]" />
             </colgroup>
             <thead>
-              <tr className="h-14 border-b border-[#e7e4de] bg-[#fbfaf7] text-left text-sm font-bold text-[#9a958b]">
+              <tr className="h-12 border-b border-slate-100 bg-slate-50/80 text-left text-xs font-bold uppercase tracking-wide text-slate-400">
                 <th className="px-7">안건 제목</th>
                 <th className="px-3 text-center">찬성</th>
                 <th className="px-3 text-center">반대</th>
@@ -161,10 +161,10 @@ export default function AdminAgendaPage() {
                 <th className="px-7">처리 상태 변경</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#ece9e3]">
+            <tbody className="divide-y divide-slate-100">
               {isLoading && (
                 <tr>
-                  <td colSpan={6} className="h-36 text-center text-sm font-medium text-[#8b867c]">
+                  <td colSpan={6} className="h-36 text-center text-sm text-slate-400">
                     안건을 불러오는 중입니다.
                   </td>
                 </tr>
@@ -178,31 +178,31 @@ export default function AdminAgendaPage() {
               )}
               {!isLoading && !error && agendas.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="h-36 text-center text-sm font-medium text-[#8b867c]">
+                  <td colSpan={6} className="h-36 text-center text-sm text-slate-400">
                     {emptyMessage}
                   </td>
                 </tr>
               )}
               {!isLoading && !error && agendas.map((agenda) => (
-                <tr key={agenda.id} className="h-[88px]">
+                <tr key={agenda.id} className="h-20 hover:bg-slate-50/50 transition">
                   <td className="px-7">
-                    <p className="truncate text-base font-extrabold text-[#22201c]">{agenda.title}</p>
-                    <p className="mt-1 text-sm font-medium text-[#9c978d]">{formatDate(agenda.created_at)} 등록</p>
+                    <p className="truncate text-sm font-semibold text-slate-900">{agenda.title}</p>
+                    <p className="mt-1 text-xs text-slate-400">{formatDate(agenda.created_at)} 등록</p>
                   </td>
-                  <td className="px-3 text-center text-base font-extrabold text-[#1f1d1a]">{agenda.agree_count}</td>
-                  <td className="px-3 text-center text-base font-extrabold text-[#1f1d1a]">{agenda.disagree_count}</td>
-                  <td className="px-3 text-center text-base font-extrabold text-blue-600">{agenda.agreement_rate}%</td>
+                  <td className="px-3 text-center text-sm font-bold text-slate-900">{agenda.agree_count}</td>
+                  <td className="px-3 text-center text-sm font-bold text-slate-900">{agenda.disagree_count}</td>
+                  <td className="px-3 text-center text-sm font-bold text-indigo-600">{agenda.agreement_rate}%</td>
                   <td className="px-3">
                     <div className="flex min-w-0 items-center gap-2">
                       <CategoryPill category={agenda.category} />
-                      <span className="truncate text-sm font-medium text-[#8a857b]">{agenda.department}</span>
+                      <span className="truncate text-sm font-medium text-slate-500">{agenda.department}</span>
                     </div>
                   </td>
                   <td className="px-7">
                     <select
                       value={agenda.status}
                       onChange={(event: ChangeEvent<HTMLSelectElement>) => handleStatusChange(agenda, event.target.value as AgendaStatus)}
-                      className="h-10 w-full rounded-lg border border-[#d8d5cf] bg-white px-4 text-sm font-bold text-[#2a2824] outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                      className="h-9 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm font-medium text-slate-800 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-50"
                     >
                       {STATUS_OPTIONS.map((status) => (
                         <option key={status} value={status}>

@@ -12,10 +12,10 @@ export default function Toast({ message, type = 'success', onClose }: ToastProps
     return () => clearTimeout(timer);
   }, [onClose]);
 
-  const bg = type === 'success' ? 'bg-slate-950' : 'bg-red-600';
+  const bg = type === 'success' ? 'bg-slate-900' : 'bg-red-600';
 
   return (
-    <div className={`fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-lg ${bg} px-4 py-3 text-sm font-bold text-white shadow-xl`}>
+    <div className={`fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-xl ${bg} px-5 py-3 text-sm font-semibold text-white shadow-2xl ring-1 ring-white/10`}>
       {message}
     </div>
   );

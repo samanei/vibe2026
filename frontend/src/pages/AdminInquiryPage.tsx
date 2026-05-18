@@ -39,7 +39,7 @@ function StatusBadge({ status }: { status: InquiryStatus }) {
   const color = INQUIRY_STATUS_COLORS[status];
 
   return (
-    <span className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-extrabold ${color.bg} ${color.text}`}>
+    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${color.bg} ${color.text}`}>
       {status}
     </span>
   );
@@ -58,22 +58,22 @@ function InquiryListItem({
     <button
       type="button"
       onClick={onSelect}
-      className={`w-full rounded-lg border bg-white p-5 text-left shadow-sm transition ${
+      className={`w-full rounded-xl border p-4 text-left transition ${
         isSelected
-          ? 'border-blue-200 border-l-4 border-l-blue-600 bg-blue-50'
-          : 'border-[#dedbd4] hover:border-blue-200 hover:bg-blue-50/50'
+          ? 'border-indigo-200 bg-indigo-50 ring-1 ring-indigo-300'
+          : 'border-transparent bg-slate-50 hover:bg-white hover:border-slate-200 hover:shadow-sm'
       }`}
     >
       <div className="flex items-center justify-between gap-3">
         <StatusBadge status={inquiry.status} />
-        <span className="shrink-0 text-xs font-bold text-[#9a958b]">{formatDate(inquiry.created_at)}</span>
+        <span className="shrink-0 text-xs font-medium text-slate-400">{formatDate(inquiry.created_at)}</span>
       </div>
-      <div className="mt-4 flex min-w-0 items-center gap-2 text-xs font-bold text-[#8b867c]">
-        <span className="rounded-md border border-[#dedbd4] bg-[#f4f2ed] px-2 py-1 text-[#6d6960]">{inquiry.category}</span>
-        <span>익명</span>
+      <div className="mt-3 flex min-w-0 items-center gap-2">
+        <span className="rounded-full border border-slate-200 bg-white px-2.5 py-0.5 text-xs font-medium text-slate-600">{inquiry.category}</span>
+        <span className="text-xs text-slate-400">익명</span>
       </div>
-      <p className="mt-3 truncate text-base font-extrabold text-[#22201c]">{inquiry.title}</p>
-      <p className="mt-2 truncate text-sm font-medium text-[#8a857b]">{inquiry.content}</p>
+      <p className="mt-2 truncate text-sm font-semibold text-slate-900">{inquiry.title}</p>
+      <p className="mt-1 truncate text-xs text-slate-500">{inquiry.content}</p>
     </button>
   );
 }
@@ -165,14 +165,14 @@ export default function AdminInquiryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f7f6f2] text-[#1f1d1a]">
+    <div className="min-h-screen bg-slate-50">
       <AdminGNB />
       <main className="mx-auto max-w-7xl px-6 py-10 lg:px-10 lg:py-12">
-        <h1 className="text-3xl font-extrabold tracking-tight text-[#171613]">문의 관리</h1>
+        <h1 className="text-2xl font-bold text-slate-900">문의 관리</h1>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[420px_minmax(0,1fr)]">
-          <section className="rounded-lg border border-[#dedbd4] bg-white shadow-sm">
-            <div className="border-b border-[#e7e4de] p-5">
+          <section className="rounded-xl border border-slate-100 bg-white shadow-sm overflow-hidden">
+            <div className="border-b border-slate-100 p-4">
               <div className="flex flex-wrap gap-2">
                 {statusCounts.map((count) => {
                   const isActive = activeStatus === count.status;
@@ -184,8 +184,8 @@ export default function AdminInquiryPage() {
                       onClick={() => handleFilterClick(count.status)}
                       className={`h-9 rounded-full border px-4 text-sm font-semibold transition ${
                         isActive
-                          ? 'border-[#191815] bg-[#191815] text-white'
-                          : 'border-[#dedbd4] bg-white text-[#767168] hover:border-[#c8c3ba] hover:text-[#1f1d1a]'
+                          ? 'border-slate-900 bg-slate-900 text-white'
+                          : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
                       }`}
                     >
                       {count.label} ({count.value})
@@ -195,15 +195,15 @@ export default function AdminInquiryPage() {
               </div>
             </div>
 
-            <div className="max-h-[calc(100vh-260px)] min-h-[520px] space-y-3 overflow-y-auto p-5">
+            <div className="max-h-[calc(100vh-260px)] min-h-[520px] space-y-2 overflow-y-auto p-4">
               {isLoading && (
-                <p className="py-20 text-center text-sm font-medium text-[#8b867c]">문의를 불러오는 중입니다.</p>
+                <p className="py-20 text-center text-sm text-slate-400">문의를 불러오는 중입니다.</p>
               )}
               {!isLoading && error && (
                 <p className="py-20 text-center text-sm font-medium text-red-600">{error}</p>
               )}
               {!isLoading && !error && inquiries.length === 0 && (
-                <p className="py-20 text-center text-sm font-medium text-[#8b867c]">등록된 문의가 없습니다.</p>
+                <p className="py-20 text-center text-sm text-slate-400">등록된 문의가 없습니다.</p>
               )}
               {!isLoading && !error && inquiries.map((inquiry) => (
                 <InquiryListItem
@@ -216,18 +216,18 @@ export default function AdminInquiryPage() {
             </div>
           </section>
 
-          <section className="min-h-[654px] rounded-lg border border-[#dedbd4] bg-white shadow-sm">
+          <section className="min-h-[654px] rounded-xl border border-slate-100 bg-white shadow-sm overflow-hidden">
             {!selectedInquiry ? (
-              <div className="flex h-full min-h-[520px] items-center justify-center p-8 text-sm font-medium text-[#8b867c]">
+              <div className="flex h-full min-h-[520px] items-center justify-center p-8 text-sm text-slate-400">
                 선택된 문의가 없습니다.
               </div>
             ) : (
               <div className="flex h-full min-h-[654px] flex-col">
-                <div className="border-b border-[#e7e4de] p-7">
+                <div className="border-b border-slate-100 p-6">
                   <div className="flex items-start justify-between gap-5">
                     <div className="min-w-0">
-                      <h2 className="truncate text-2xl font-extrabold text-[#22201c]">{selectedInquiry.title}</h2>
-                      <p className="mt-3 text-sm font-bold text-[#8b867c]">
+                      <h2 className="truncate text-lg font-bold text-slate-900">{selectedInquiry.title}</h2>
+                      <p className="mt-2 text-xs text-slate-500">
                         {selectedInquiry.category} · 익명 · {formatDate(selectedInquiry.created_at)} 등록
                       </p>
                     </div>
@@ -235,21 +235,21 @@ export default function AdminInquiryPage() {
                   </div>
                 </div>
 
-                <div className="flex-1 space-y-7 p-7">
+                <div className="flex-1 space-y-6 p-6">
                   <div>
-                    <h3 className="text-sm font-extrabold text-[#59544c]">문의 내용</h3>
-                    <div className="mt-3 max-h-60 overflow-y-auto rounded-lg border border-[#e2ded7] bg-[#f4f2ed] p-5 text-sm font-medium leading-7 text-[#3d3933]">
+                    <h3 className="text-xs font-bold uppercase tracking-wide text-slate-500">문의 내용</h3>
+                    <div className="mt-2 max-h-60 overflow-y-auto rounded-xl border border-slate-100 bg-slate-50 p-4 text-sm leading-relaxed text-slate-700">
                       {selectedInquiry.content}
                     </div>
                   </div>
 
                   <div className="grid gap-5 md:grid-cols-[220px_minmax(0,1fr)]">
                     <label className="block">
-                      <span className="text-sm font-extrabold text-[#59544c]">처리 상태</span>
+                      <span className="text-xs font-bold uppercase tracking-wide text-slate-500">처리 상태</span>
                       <select
                         value={selectedStatus}
                         onChange={(event) => setSelectedStatus(event.target.value as InquiryStatus)}
-                        className="mt-3 h-11 w-full rounded-lg border border-[#d8d5cf] bg-white px-4 text-sm font-bold text-[#2a2824] outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                        className="mt-2 h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-800 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50"
                       >
                         {REPLY_STATUS_OPTIONS.map((status) => (
                           <option key={status} value={status}>
@@ -260,26 +260,26 @@ export default function AdminInquiryPage() {
                     </label>
 
                     <label className="block">
-                      <span className="text-sm font-extrabold text-[#59544c]">답변</span>
+                      <span className="text-xs font-bold uppercase tracking-wide text-slate-500">답변</span>
                       <textarea
                         value={draftReply}
                         onChange={(event) => setDraftReply(event.target.value)}
-                        className="mt-3 min-h-48 w-full resize-none rounded-lg border border-[#d8d5cf] bg-white p-4 text-sm font-medium leading-7 text-[#2a2824] outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                        className="mt-2 min-h-48 w-full resize-none rounded-xl border border-slate-200 bg-white p-4 text-sm leading-relaxed text-slate-800 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50"
                         placeholder="답변 내용을 입력하세요."
                       />
                     </label>
                   </div>
                 </div>
 
-                <div className="border-t border-[#e7e4de] p-7">
-                  <p className="text-sm font-bold text-[#8b867c]">답변 내용은 해당 학생에게만 비공개로 전달됩니다.</p>
-                  <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-                    <p className="text-xs font-bold text-[#aaa49a]">등록 후에도 수정할 수 있습니다.</p>
+                <div className="border-t border-slate-100 p-6">
+                  <p className="text-xs text-slate-400">답변 내용은 해당 학생에게만 비공개로 전달됩니다.</p>
+                  <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
+                    <p className="text-xs text-slate-400">등록 후에도 수정할 수 있습니다.</p>
                     <button
                       type="button"
                       onClick={handleSubmit}
                       disabled={!draftReply.trim() || isSubmitting}
-                      className="h-11 rounded-lg bg-blue-600 px-6 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-[#d8d5cf] disabled:text-[#8b867c]"
+                      className="h-11 rounded-xl bg-indigo-600 px-6 text-sm font-semibold text-white hover:bg-indigo-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed transition"
                     >
                       {isSubmitting ? '등록 중' : '답변 등록하기'}
                     </button>

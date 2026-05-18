@@ -65,7 +65,7 @@ function StatusPill({ status }: { status: string }) {
   };
 
   return (
-    <span className={`inline-flex items-center rounded-lg px-3 py-1.5 text-xs font-extrabold ${statusClass[status] ?? 'bg-gray-100 text-gray-600'}`}>
+    <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${statusClass[status] ?? 'bg-gray-100 text-gray-600'}`}>
       {status}
     </span>
   );
@@ -89,23 +89,23 @@ function MetricCard({
   }[tone];
 
   return (
-    <div className="rounded-lg border border-[#dedbd4] bg-white p-7 shadow-sm">
-      <p className="text-sm font-bold text-[#706b62]">{label}</p>
-      <p className={`mt-6 text-5xl font-extrabold leading-none ${numberColor}`}>{value.toLocaleString()}</p>
-      <p className="mt-5 text-sm font-medium text-[#969086]">{description}</p>
+    <div className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm">
+      <p className="text-sm font-medium text-slate-500">{label}</p>
+      <p className={`mt-4 text-4xl font-bold leading-none ${numberColor}`}>{value.toLocaleString()}</p>
+      <p className="mt-3 text-xs text-slate-400">{description}</p>
     </div>
   );
 }
 
 function PendingInquiryItem({ inquiry }: { inquiry: AdminPendingInquiry }) {
   return (
-    <li className="border-b border-[#ece9e3] last:border-0 py-4">
+    <li className="border-b border-slate-100 last:border-0 py-4">
       <div className="flex items-start gap-3">
         <div>
-          <p className="text-base font-extrabold text-[#201e1a]">{inquiry.title}</p>
-          <p className="mt-2 text-sm font-medium text-[#9b958b]">{inquiry.category} · {inquiry.department} · 익명</p>
+          <p className="text-sm font-semibold text-slate-900">{inquiry.title}</p>
+          <p className="mt-1 text-xs text-slate-500">{inquiry.category} · {inquiry.department} · 익명</p>
         </div>
-        <span className="ml-auto shrink-0 text-sm font-semibold text-[#9b958b]">{formatDate(inquiry.created_at)}</span>
+        <span className="ml-auto shrink-0 text-xs text-slate-500">{formatDate(inquiry.created_at)}</span>
       </div>
       <div className="mt-2">
         <StatusPill status={inquiry.status} />
@@ -116,12 +116,12 @@ function PendingInquiryItem({ inquiry }: { inquiry: AdminPendingInquiry }) {
 
 function PopularAgendaItem({ agenda }: { agenda: AdminPopularAgenda }) {
   return (
-    <li className="grid grid-cols-[1fr_140px_54px_88px] items-center gap-4 border-b border-[#ece9e3] py-4 last:border-0">
-      <p className="truncate text-base font-extrabold text-[#201e1a]">{agenda.title}</p>
-      <div className="h-2.5 overflow-hidden rounded-full bg-[#ebe8e0]">
-        <div className="h-full rounded-full bg-blue-600" style={{ width: `${agenda.agreement_rate}%` }} />
+    <li className="grid grid-cols-[1fr_140px_54px_88px] items-center gap-4 border-b border-slate-100 py-4 last:border-0">
+      <p className="truncate text-sm font-semibold text-slate-900">{agenda.title}</p>
+      <div className="h-2.5 overflow-hidden rounded-full bg-slate-100">
+        <div className="h-full rounded-full bg-indigo-600" style={{ width: `${agenda.agreement_rate}%` }} />
       </div>
-      <p className="text-right text-base font-extrabold text-blue-600">{agenda.agreement_rate}%</p>
+      <p className="text-right text-sm font-bold text-indigo-600">{agenda.agreement_rate}%</p>
       <StatusPill status={agenda.status} />
     </li>
   );
@@ -138,20 +138,20 @@ function ChartBlock({ title, rows, color = 'blue' }: { title: string; rows: Admi
   };
 
   return (
-    <section className="rounded-lg border border-[#dedbd4] bg-white p-7 shadow-sm">
-      <h3 className="text-xl font-extrabold text-[#201e1a] mb-7">{title}</h3>
+    <section className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm">
+      <h3 className="text-base font-bold text-slate-900 mb-5">{title}</h3>
       <div className="space-y-4">
         {rows.map((row) => {
           const width = maxValue === 0 ? 0 : Math.round((row.value / maxValue) * 100);
-          const barColor = color === 'status' ? statusColors[row.label] ?? 'bg-blue-600' : 'bg-blue-600';
+          const barColor = color === 'status' ? statusColors[row.label] ?? 'bg-indigo-600' : 'bg-indigo-600';
 
           return (
             <div key={row.label} className="grid grid-cols-[72px_1fr_36px] items-center gap-3 text-sm">
-              <span className="truncate text-right font-medium text-[#777168]">{row.label}</span>
-              <div className="h-2.5 overflow-hidden rounded-full bg-[#ebe8e0]">
+              <span className="truncate text-right font-medium text-slate-500">{row.label}</span>
+              <div className="h-2.5 overflow-hidden rounded-full bg-slate-100">
                 <div className={`h-full rounded-full ${barColor}`} style={{ width: `${width}%` }} />
               </div>
-              <span className="text-right font-semibold text-[#777168]">{row.value}</span>
+              <span className="text-right font-semibold text-slate-500">{row.value}</span>
             </div>
           );
         })}
@@ -162,7 +162,7 @@ function ChartBlock({ title, rows, color = 'blue' }: { title: string; rows: Admi
 
 function MetricsGrid({ metrics }: { metrics: AdminMetrics }) {
   return (
-    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <MetricCard
         label="전체 안건"
         value={metrics.total_agendas}
@@ -183,9 +183,9 @@ function MetricsGrid({ metrics }: { metrics: AdminMetrics }) {
 
 function CardHeader({ title, href }: { title: string; href: string }) {
   return (
-    <div className="mb-7 flex items-center justify-between gap-4">
-      <h2 className="text-xl font-extrabold text-[#201e1a]">{title}</h2>
-      <a href={href} className="text-sm font-bold text-blue-600 hover:text-blue-700">
+    <div className="mb-6 flex items-center justify-between gap-4">
+      <h2 className="text-base font-bold text-slate-900">{title}</h2>
+      <a href={href} className="text-sm font-medium text-indigo-600 hover:text-indigo-700">
         전체 보기 →
       </a>
     </div>
@@ -220,14 +220,14 @@ export default function AdminDashboardPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#f7f6f2] text-[#1f1d1a]">
+    <div className="min-h-screen bg-slate-50">
       <AdminGNB />
       <main className="max-w-7xl mx-auto px-6 py-10 lg:px-10 lg:py-12">
-        <h1 className="text-3xl font-extrabold tracking-tight text-[#171613]">대시보드</h1>
+        <h1 className="text-2xl font-bold text-slate-900">대시보드</h1>
 
-        {isLoading && <div className="mt-9 rounded-lg border border-[#dedbd4] bg-white p-12 text-center text-sm font-medium text-[#8b867c]">대시보드를 불러오는 중입니다.</div>}
+        {isLoading && <div className="mt-9 rounded-xl border border-slate-100 bg-white p-12 text-center text-sm text-slate-400">대시보드를 불러오는 중입니다.</div>}
         {error && !isLoading && (
-          <div className="mt-9 rounded-lg border border-red-200 bg-red-50 px-5 py-3 text-center text-sm font-semibold text-red-600">
+          <div className="mt-9 rounded-xl border border-red-100 bg-red-50 px-5 py-3 text-center text-sm font-medium text-red-600">
             {error}
           </div>
         )}
@@ -237,10 +237,10 @@ export default function AdminDashboardPage() {
             <MetricsGrid metrics={displayDashboard.metrics} />
 
             <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-              <section className="rounded-lg border border-[#dedbd4] bg-white p-7 shadow-sm">
+              <section className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm">
                 <CardHeader title="🔥 공감도 높은 안건" href="/admin/agendas" />
                 {displayDashboard.popular_agendas.length === 0 ? (
-                  <p className="py-16 text-center text-sm font-medium text-[#8b867c]">등록된 안건이 없습니다.</p>
+                  <p className="py-16 text-center text-sm text-slate-400">등록된 안건이 없습니다.</p>
                 ) : (
                   <ul>
                     {displayDashboard.popular_agendas.slice(0, 4).map((agenda) => (
@@ -250,10 +250,10 @@ export default function AdminDashboardPage() {
                 )}
               </section>
 
-              <section className="rounded-lg border border-[#dedbd4] bg-white p-7 shadow-sm">
+              <section className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm">
                 <CardHeader title="⏰ 답변 필요한 문의" href="/admin/inquiries?status=답변 대기" />
                 {displayDashboard.pending_inquiries.length === 0 ? (
-                  <p className="py-16 text-center text-sm font-medium text-[#8b867c]">답변 대기 문의가 없습니다.</p>
+                  <p className="py-16 text-center text-sm text-slate-400">답변 대기 문의가 없습니다.</p>
                 ) : (
                   <ul>
                     {displayDashboard.pending_inquiries.slice(0, 3).map((inquiry) => (

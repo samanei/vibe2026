@@ -61,11 +61,11 @@ export default function AgendaDetailPage() {
 
   if (invalidAgendaId) {
     return (
-      <div className="mx-auto max-w-5xl px-6 py-10">
-        <button onClick={() => navigate('/agendas')} className="mb-6 text-sm font-black text-slate-600 hover:text-slate-950">
+      <div className="mx-auto max-w-6xl px-6 py-8">
+        <button onClick={() => navigate('/agendas')} className="mb-6 text-sm font-medium text-slate-500 hover:text-slate-900 transition">
           ← 목록으로
         </button>
-        <div className="rounded-lg border border-slate-200 bg-white p-8 text-center text-sm text-slate-600">
+        <div className="rounded-xl border border-slate-100 bg-white p-8 text-center text-sm text-slate-600">
           삭제된 안건입니다.
         </div>
       </div>
@@ -73,16 +73,16 @@ export default function AgendaDetailPage() {
   }
 
   if (loading) {
-    return <div className="mx-auto max-w-5xl px-6 py-10 text-sm font-medium text-slate-500">안건을 불러오는 중입니다.</div>;
+    return <div className="mx-auto max-w-6xl px-6 py-8 text-sm font-medium text-slate-500">안건을 불러오는 중입니다.</div>;
   }
 
   if (error || !agenda) {
     return (
-      <div className="mx-auto max-w-5xl px-6 py-10">
-        <button onClick={() => navigate('/agendas')} className="mb-6 text-sm font-black text-slate-600 hover:text-slate-950">
+      <div className="mx-auto max-w-6xl px-6 py-8">
+        <button onClick={() => navigate('/agendas')} className="mb-6 text-sm font-medium text-slate-500 hover:text-slate-900 transition">
           ← 목록으로
         </button>
-        <div className="rounded-lg border border-slate-200 bg-white p-8 text-center text-sm text-slate-600">
+        <div className="rounded-xl border border-slate-100 bg-white p-8 text-center text-sm text-slate-600">
           {error || '삭제된 안건입니다.'}
         </div>
       </div>
@@ -93,26 +93,26 @@ export default function AgendaDetailPage() {
   const totalVotes = getTotalVotes(agenda);
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-7">
+    <div className="mx-auto max-w-6xl px-6 py-8">
       <div className="mb-5 flex items-center justify-between">
-        <button onClick={() => navigate('/agendas')} className="text-sm font-black text-slate-600 hover:text-slate-950">
+        <button onClick={() => navigate('/agendas')} className="text-sm font-medium text-slate-500 hover:text-slate-900 transition">
           ← 목록으로
         </button>
-        <span className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-500">
+        <span className="rounded-full border border-slate-100 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-500">
           익명 · {agenda.department}
         </span>
       </div>
 
-      <div className="grid grid-cols-[minmax(0,1fr)_300px] gap-6">
+      <div className="grid grid-cols-[minmax(0,1fr)_280px] gap-6">
         <main className="space-y-5">
-          <section className="rounded-lg border border-slate-200 bg-white p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+          <section className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm">
             <div className="mb-4 flex flex-wrap items-center gap-2">
               <CategoryBadge category={agenda.category} />
               <StatusBadge status={agenda.status} />
               <span className="text-xs font-semibold text-slate-400">{formatDate(agenda.created_at)}</span>
             </div>
 
-            <h1 className="text-3xl font-black leading-tight text-slate-950">{agenda.title}</h1>
+            <h1 className="text-2xl font-bold leading-snug text-slate-900">{agenda.title}</h1>
 
             <div className="mt-8 grid gap-5">
               <TextSection title="문제 상황" content={agenda.problem_description} />
@@ -120,9 +120,9 @@ export default function AgendaDetailPage() {
             </div>
           </section>
 
-          <section className="rounded-lg border border-slate-200 bg-white p-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+          <section className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm">
             <div className="mb-5 flex items-center justify-between">
-              <h2 className="text-base font-black text-slate-950">투표 현황</h2>
+              <h2 className="text-base font-bold text-slate-900">투표 현황</h2>
               <span className="text-sm font-semibold text-slate-500">총 {totalVotes}명 참여</span>
             </div>
             <div className="grid grid-cols-4 gap-3 text-center">
@@ -131,8 +131,8 @@ export default function AgendaDetailPage() {
               <Metric label="반대" value={agenda.disagree_count} />
               <Metric label="총 참여" value={totalVotes} />
             </div>
-            <div className="mt-5 h-4 overflow-hidden rounded-full bg-slate-100">
-              <div className="h-full rounded-full bg-blue-600" style={{ width: `${agreeRate}%` }} />
+            <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-100">
+              <div className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-indigo-600" style={{ width: `${agreeRate}%` }} />
             </div>
             <div className="mt-5">
               <VoteButtons selected={agenda.user_vote} disabled={voting} onVote={handleVote} />
@@ -142,8 +142,8 @@ export default function AgendaDetailPage() {
           <StatusTimeline status={agenda.status} timeline={agenda.timeline} />
         </main>
 
-        <aside className="sticky top-24 h-fit rounded-lg border border-slate-200 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
-          <h2 className="mb-4 text-base font-black text-slate-950">안건 정보</h2>
+        <aside className="sticky top-[4.5rem] h-fit rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
+          <h2 className="mb-4 text-base font-bold text-slate-900">안건 정보</h2>
           <InfoRow label="카테고리" value={agenda.category} />
           <InfoRow label="등록 학과" value={agenda.department} />
           <InfoRow label="등록일" value={formatDate(agenda.created_at)} />
@@ -161,18 +161,18 @@ export default function AgendaDetailPage() {
 
 function TextSection({ title, content }: { title: string; content: string }) {
   return (
-    <section className="border-l-4 border-slate-200 pl-4">
-      <h2 className="mb-3 text-sm font-black text-slate-950">{title}</h2>
-      <p className="whitespace-pre-wrap text-sm leading-7 text-slate-700">{content}</p>
+    <section className="border-l-4 border-indigo-100 pl-4">
+      <h2 className="mb-3 text-sm font-bold text-slate-700">{title}</h2>
+      <p className="text-sm leading-7 text-slate-600 whitespace-pre-wrap">{content}</p>
     </section>
   );
 }
 
 function Metric({ label, value, accent = false }: { label: string; value: number | string; accent?: boolean }) {
   return (
-    <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-      <div className="text-xs font-bold text-slate-500">{label}</div>
-      <div className={`mt-1 text-2xl font-black ${accent ? 'text-blue-700' : 'text-slate-950'}`}>{value}</div>
+    <div className="rounded-xl border border-slate-100 bg-slate-50/50 p-4 text-center">
+      <div className="text-xs font-medium text-slate-500">{label}</div>
+      <div className={`mt-1.5 text-2xl font-bold ${accent ? 'text-indigo-600' : 'text-slate-900'}`}>{value}</div>
     </div>
   );
 }
@@ -180,8 +180,8 @@ function Metric({ label, value, accent = false }: { label: string; value: number
 function InfoRow({ label, value, accent = false }: { label: string; value: string; accent?: boolean }) {
   return (
     <div className="flex items-center justify-between border-b border-slate-100 py-3 last:border-b-0">
-      <span className="text-sm font-medium text-slate-500">{label}</span>
-      <strong className={`text-sm ${accent ? 'text-blue-700' : 'text-slate-900'}`}>{value}</strong>
+      <span className="text-xs text-slate-500">{label}</span>
+      <strong className={`text-sm font-semibold ${accent ? 'text-indigo-600' : 'text-slate-900'}`}>{value}</strong>
     </div>
   );
 }

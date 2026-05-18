@@ -3,7 +3,7 @@ import GNB from './GNB';
 
 export default function Layout() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="bg-slate-50 min-h-screen">
       <GNB />
       <main>
         <Outlet />

@@ -88,12 +88,12 @@ export default function AgendaListPage() {
   };
 
   return (
-    <div className="mx-auto grid max-w-7xl grid-cols-[248px_minmax(0,1fr)] gap-6 px-6 py-7">
-      <aside className="sticky top-24 h-fit space-y-4">
-        <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-sm font-black text-slate-950">카테고리</h2>
-            <span className="text-xs font-bold text-slate-400">{categoryCounts.전체 ?? 0}건</span>
+    <div className="mx-auto grid max-w-7xl grid-cols-[220px_minmax(0,1fr)] gap-8 px-6 py-8">
+      <aside className="sticky top-[4.5rem] h-fit space-y-4">
+        <section className="rounded-xl border border-slate-100 bg-white p-4 shadow-sm">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-xs font-bold uppercase tracking-wide text-slate-400">카테고리</h2>
+            <span className="text-xs font-medium text-slate-400">{categoryCounts.전체 ?? 0}건</span>
           </div>
           <nav className="space-y-1">
             {AGENDA_CATEGORIES.map((item) => (
@@ -101,10 +101,10 @@ export default function AgendaListPage() {
                 key={item}
                 type="button"
                 onClick={() => selectCategory(item)}
-                className={`flex w-full items-center justify-between rounded-md px-3 py-2.5 text-sm transition ${
+                className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition ${
                   category === item
-                    ? 'bg-slate-950 font-black text-white'
-                    : 'font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-950'
+                    ? 'bg-indigo-600 font-semibold text-white'
+                    : 'font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                 }`}
               >
                 <span>{item}</span>
@@ -116,9 +116,9 @@ export default function AgendaListPage() {
           </nav>
         </section>
 
-        <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
-          <h2 className="mb-4 text-sm font-black text-slate-950">이번 주 현황</h2>
-          <div className="divide-y divide-slate-100">
+        <section className="rounded-xl border border-slate-100 bg-white p-4 shadow-sm">
+          <h2 className="mb-3 text-xs font-bold uppercase tracking-wide text-slate-400">이번 주 현황</h2>
+          <div>
             <Stat label="신규 안건" value={stats.new_count} />
             <Stat label="처리 완료" value={stats.done_count} />
             <Stat label="검토 중" value={stats.reviewing_count} />
@@ -128,28 +128,28 @@ export default function AgendaListPage() {
       </aside>
 
       <div className="min-w-0">
-        <div className="mb-5 rounded-lg border border-slate-200 bg-white px-5 pt-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
-          <div className="mb-5 flex items-start justify-between gap-4">
+        <div className="mb-6 rounded-xl border border-slate-100 bg-white px-5 pt-5 shadow-sm">
+          <div className="mb-5 flex items-center justify-between gap-4">
             <div>
-              <p className="text-xs font-black uppercase text-blue-700">PUBLIC AGENDA</p>
-              <h1 className="mt-1 text-2xl font-black text-slate-950">공개 안건</h1>
+              <p className="text-xs font-bold uppercase tracking-widest text-indigo-600">PUBLIC AGENDA</p>
+              <h1 className="mt-1 text-2xl font-bold text-slate-900">공개 안건</h1>
               <p className="mt-1 text-sm text-slate-500">학우들이 올린 안건을 확인하고 찬반 의견을 남겨보세요.</p>
             </div>
             <button
               onClick={() => navigate('/agendas/new')}
-              className="rounded-md bg-blue-600 px-4 py-2 text-sm font-black text-white shadow-sm hover:bg-blue-700"
+              className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 transition"
             >
               + 안건 등록
             </button>
           </div>
 
           <div className="flex items-center gap-6">
-            <button className="border-b-2 border-slate-950 px-1 pb-3 text-sm font-black text-slate-950">
+            <button className="border-b-2 border-indigo-600 px-1 pb-3 text-sm font-semibold text-indigo-700">
               공개 안건
             </button>
             <button
               onClick={() => navigate('/inquiries/new')}
-              className="px-1 pb-3 text-sm font-semibold text-slate-500 hover:text-slate-900"
+              className="px-1 pb-3 text-sm font-semibold text-slate-400 hover:text-slate-900"
             >
               비공개 문의 작성
             </button>
@@ -162,10 +162,10 @@ export default function AgendaListPage() {
               key={item}
               type="button"
               onClick={() => selectCategory(item)}
-              className={`shrink-0 rounded-md border px-3 py-2 text-sm font-bold transition ${
+              className={`shrink-0 rounded-full border px-4 py-1.5 text-sm transition ${
                 category === item
-                  ? 'border-blue-600 bg-blue-600 text-white shadow-sm'
-                  : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                  ? 'border-indigo-600 bg-indigo-600 font-semibold text-white'
+                  : 'border-slate-200 bg-white font-medium text-slate-600 hover:border-slate-300'
               }`}
             >
               {item}
@@ -173,21 +173,21 @@ export default function AgendaListPage() {
           ))}
         </div>
 
-        <div className="mb-4 flex items-center justify-between rounded-lg border border-slate-200 bg-white px-4 py-3">
+        <div className="mb-4 flex items-center justify-between rounded-xl border border-slate-100 bg-white px-4 py-3 shadow-sm">
           <div>
-            <strong className="text-sm font-black text-slate-950">{category}</strong>
+            <strong className="text-sm font-bold text-slate-900">{category}</strong>
             <span className="ml-2 text-sm text-slate-500">총 {total}건</span>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-1.5">
             {SORT_OPTIONS.map((option) => (
               <button
                 key={option.key}
                 type="button"
                 onClick={() => selectSort(option.key)}
-                className={`rounded-md border px-3 py-2 text-sm font-bold transition ${
+                className={`rounded-full px-3 py-1.5 text-xs transition ${
                   sort === option.key
-                    ? 'border-slate-950 bg-slate-950 text-white'
-                    : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                    ? 'bg-slate-900 font-semibold text-white'
+                    : 'font-medium text-slate-500 hover:bg-slate-100'
                 }`}
               >
                 {option.label}
@@ -197,21 +197,21 @@ export default function AgendaListPage() {
         </div>
 
         {error && (
-          <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-700">
+          <div className="rounded-xl border border-red-100 bg-red-50 p-4 text-sm font-medium text-red-700">
             {error}
           </div>
         )}
 
         {loading ? (
-          <div className="rounded-lg border border-slate-200 bg-white p-10 text-center text-sm font-medium text-slate-500">
+          <div className="rounded-xl border border-slate-100 bg-white p-12 text-center text-sm text-slate-400">
             안건을 불러오는 중입니다.
           </div>
         ) : agendas.length === 0 ? (
-          <div className="rounded-lg border border-slate-200 bg-white p-10 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+          <div className="rounded-xl border border-slate-100 bg-white p-10 text-center shadow-sm">
             <p className="text-sm font-medium text-slate-500">아직 등록된 안건이 없습니다.</p>
             <button
               onClick={() => navigate('/agendas/new')}
-              className="mt-4 rounded-md bg-blue-600 px-4 py-2 text-sm font-black text-white hover:bg-blue-700"
+              className="mt-4 rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 transition"
             >
               안건 등록하기
             </button>
@@ -234,9 +234,9 @@ export default function AgendaListPage() {
 
 function Stat({ label, value }: { label: string; value: number }) {
   return (
-    <div className="flex items-center justify-between py-3">
-      <div className="text-xs font-bold text-slate-500">{label}</div>
-      <div className="text-lg font-black text-slate-950">{value}</div>
+    <div className="flex items-center justify-between py-2.5 border-b border-slate-50 last:border-0">
+      <span className="text-xs text-slate-500">{label}</span>
+      <span className="text-base font-bold text-slate-900">{value}</span>
     </div>
   );
 }

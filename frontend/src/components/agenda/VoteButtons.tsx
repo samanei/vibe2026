@@ -13,10 +13,10 @@ export default function VoteButtons({ selected, disabled = false, onVote }: Vote
         type="button"
         disabled={disabled}
         onClick={() => onVote('agree')}
-        className={`rounded-lg px-4 py-3 text-sm font-black shadow-sm transition disabled:cursor-not-allowed disabled:opacity-60 ${
+        className={`rounded-xl px-4 py-3.5 text-sm font-bold shadow-sm transition disabled:cursor-not-allowed disabled:opacity-50 ${
           selected === 'agree'
-            ? 'bg-blue-700 text-white ring-4 ring-blue-100'
-            : 'bg-blue-600 text-white hover:bg-blue-700'
+            ? 'bg-indigo-700 text-white ring-4 ring-indigo-100'
+            : 'bg-indigo-600 text-white hover:bg-indigo-700'
         }`}
       >
         👍 찬성하기
@@ -25,7 +25,7 @@ export default function VoteButtons({ selected, disabled = false, onVote }: Vote
         type="button"
         disabled={disabled}
         onClick={() => onVote('disagree')}
-        className={`rounded-lg px-4 py-3 text-sm font-black shadow-sm transition disabled:cursor-not-allowed disabled:opacity-60 ${
+        className={`rounded-xl px-4 py-3.5 text-sm font-bold shadow-sm transition disabled:cursor-not-allowed disabled:opacity-50 ${
           selected === 'disagree'
             ? 'bg-rose-700 text-white ring-4 ring-rose-100'
             : 'bg-rose-500 text-white hover:bg-rose-600'
