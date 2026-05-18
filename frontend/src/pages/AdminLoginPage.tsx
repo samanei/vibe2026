@@ -18,7 +18,7 @@ export default function AdminLoginPage() {
     }
 
     setAdminSession();
-    navigate('/admin/agendas', { replace: true });
+    navigate('/admin', { replace: true });
   };
 
   return (
