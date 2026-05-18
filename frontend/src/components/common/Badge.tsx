@@ -8,7 +8,7 @@ interface StatusBadgeProps {
 export function StatusBadge({ status }: StatusBadgeProps) {
   const color = AGENDA_STATUS_COLORS[status] ?? { bg: 'bg-gray-100', text: 'text-gray-500' };
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${color.bg} ${color.text}`}>
+    <span className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-bold ${color.bg} ${color.text}`}>
       {status}
     </span>
   );
@@ -20,7 +20,7 @@ interface CategoryBadgeProps {
 
 export function CategoryBadge({ category }: CategoryBadgeProps) {
   return (
-    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">
+    <span className="inline-flex items-center rounded-md border border-slate-200 bg-white px-2.5 py-1 text-xs font-bold text-slate-600">
       {category}
     </span>
   );
@@ -28,7 +28,7 @@ export function CategoryBadge({ category }: CategoryBadgeProps) {
 
 export function HotBadge() {
   return (
-    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-600">
+    <span className="inline-flex items-center rounded-md bg-rose-50 px-2.5 py-1 text-xs font-black text-rose-600 ring-1 ring-rose-100">
       🔥 HOT
     </span>
   );

@@ -30,6 +30,11 @@ export interface Agenda {
   created_at: string;
 }
 
+export interface AgendaDetail extends Agenda {
+  timeline: AgendaTimeline[];
+  user_vote: VoteType | null;
+}
+
 export interface AgendaTimeline {
   id: number;
   agenda_id: number;
@@ -67,4 +72,15 @@ export interface PaginatedResponse<T> {
   total: number;
   page: number;
   limit: number;
+}
+
+export interface AgendaListResponse extends PaginatedResponse<Agenda> {
+  category_counts: Record<string, number>;
+}
+
+export interface WeeklyAgendaStats {
+  new_count: number;
+  done_count: number;
+  reviewing_count: number;
+  total_votes: number;
 }

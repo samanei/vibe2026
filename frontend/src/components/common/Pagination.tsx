@@ -10,11 +10,11 @@ export default function Pagination({ page, total, limit, onChange }: PaginationP
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex items-center justify-center gap-1 py-4">
+    <div className="flex items-center justify-center gap-1 py-6">
       <button
         onClick={() => onChange(page - 1)}
         disabled={page === 1}
-        className="px-3 py-1.5 text-sm rounded border border-gray-200 disabled:opacity-40 hover:bg-gray-50"
+        className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-40"
       >
         이전
       </button>
@@ -22,10 +22,10 @@ export default function Pagination({ page, total, limit, onChange }: PaginationP
         <button
           key={p}
           onClick={() => onChange(p)}
-          className={`px-3 py-1.5 text-sm rounded border ${
+          className={`rounded-md border px-3 py-2 text-sm font-bold ${
             p === page
-              ? 'bg-blue-600 text-white border-blue-600'
-              : 'border-gray-200 hover:bg-gray-50'
+              ? 'border-slate-950 bg-slate-950 text-white'
+              : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
           }`}
         >
           {p}
@@ -34,7 +34,7 @@ export default function Pagination({ page, total, limit, onChange }: PaginationP
       <button
         onClick={() => onChange(page + 1)}
         disabled={page === totalPages}
-        className="px-3 py-1.5 text-sm rounded border border-gray-200 disabled:opacity-40 hover:bg-gray-50"
+        className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-40"
       >
         다음
       </button>
