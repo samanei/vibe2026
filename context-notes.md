@@ -9,3 +9,8 @@
 - 대시보드 레이아웃은 답변 대기 문의를 크게 배치하는 문의 우선형으로 결정했다.
 - `/admin/agendas`, `/admin/inquiries`는 이번 단계에서 페이지를 만들지 않고 링크만 남긴다.
 - 기존 미추적 `AGENTS.md`는 사용자 작업으로 보고 건드리지 않는다.
+- 백엔드 헬퍼 테스트는 먼저 작성했고, `backend/lib/adminDashboard` 모듈 없음으로 실패하는 RED 상태를 확인했다.
+- `buildDashboardData`는 DB query 인터페이스를 받아 KPI, 목록, 차트 데이터를 한 번에 정규화한다.
+- `/api/admin/dashboard`는 DB 연결 실패 시 한국어 일반 오류 메시지를 반환한다.
+- 브라우저에서 `/admin/login`에 접속해 `admin2026` 입력 후 `/admin`으로 이동하는 흐름을 확인했다.
+- 로컬 DB 인증 정보가 없어 실제 데이터 렌더링 대신 API 오류 상태가 표시되는 것까지 확인했다.

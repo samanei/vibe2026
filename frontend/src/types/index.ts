@@ -43,7 +43,7 @@ export interface Vote {
   vote_type: VoteType;
 }
 
-export type InquiryStatus = '답변 대기' | '답변 완료';
+export type InquiryStatus = '답변 대기' | '검토 중' | '답변 완료';
 
 export interface Inquiry {
   id: number;
@@ -67,4 +67,49 @@ export interface PaginatedResponse<T> {
   total: number;
   page: number;
   limit: number;
+}
+
+export interface AdminMetrics {
+  total_agendas: number;
+  weekly_new_agendas: number;
+  pending_inquiries: number;
+  reviewing_agendas: number;
+  completed_agendas: number;
+}
+
+export interface AdminPendingInquiry {
+  id: number;
+  title: string;
+  category: string;
+  department: string;
+  status: InquiryStatus;
+  created_at: string;
+}
+
+export interface AdminPopularAgenda {
+  id: number;
+  title: string;
+  category: AgendaCategory | string;
+  department: string;
+  status: AgendaStatus;
+  agree_count: number;
+  disagree_count: number;
+  agreement_rate: number;
+  created_at: string;
+}
+
+export interface AdminChartRow {
+  label: string;
+  value: number;
+}
+
+export interface AdminDashboardData {
+  metrics: AdminMetrics;
+  pending_inquiries: AdminPendingInquiry[];
+  popular_agendas: AdminPopularAgenda[];
+  charts: {
+    agenda_categories: AdminChartRow[];
+    agenda_statuses: AdminChartRow[];
+    inquiry_categories: AdminChartRow[];
+  };
 }
