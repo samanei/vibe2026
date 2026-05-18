@@ -142,6 +142,29 @@ export interface AdminAgendaListResponse {
   status_counts: AdminAgendaStatusCount[];
 }
 
+export interface AdminInquiry {
+  id: number;
+  category: string;
+  title: string;
+  content: string;
+  department: string;
+  status: InquiryStatus;
+  reply: string | null;
+  created_at: string;
+  replied_at: string | null;
+}
+
+export interface AdminInquiryStatusCount {
+  status: InquiryStatus | '전체';
+  label: string;
+  value: number;
+}
+
+export interface AdminInquiryListResponse {
+  data: AdminInquiry[];
+  status_counts: AdminInquiryStatusCount[];
+}
+
 export interface AgendaListResponse extends PaginatedResponse<Agenda> {
   category_counts: Record<string, number>;
 }

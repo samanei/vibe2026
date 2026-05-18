@@ -4,6 +4,12 @@ const router = express.Router();
 const db = require('../db');
 const { buildDashboardData } = require('../lib/adminDashboard');
 const { ADMIN_AGENDA_STATUSES, buildStatusCounts, normalizeAdminAgenda } = require('../lib/adminAgenda');
+const {
+  buildInquiryStatusCounts,
+  isInquiryStatus,
+  isReplyStatus,
+  normalizeAdminInquiry,
+} = require('../lib/adminInquiry');
 
 router.get('/dashboard', async (req, res) => {
   try {
@@ -76,6 +82,82 @@ router.patch('/agendas/:id/status', async (req, res) => {
     res.json({ message: '처리 상태가 변경되었습니다.' });
   } catch (err) {
     res.status(500).json({ message: '처리 상태를 변경하지 못했습니다.' });
+  }
+});
+
+router.get('/inquiries', async (req, res) => {
+  try {
+    const requestedStatus = typeof req.query.status === 'string' ? req.query.status : '전체';
+    const activeStatus = requestedStatus || '전체';
+    const where = [];
+    const params = [];
+
+    if (activeStatus !== '전체') {
+      if (!isInquiryStatus(activeStatus)) {
+        return res.status(400).json({ message: '유효하지 않은 문의 상태입니다.' });
+      }
+
+      where.push('status = ?');
+      params.push(activeStatus);
+    }
+
+    const whereSql = where.length > 0 ? `WHERE ${where.join(' AND ')}` : '';
+    const [rows] = await db.query(
+      `
+        SELECT id, category, title, content, department, status, reply, created_at, replied_at
+        FROM inquiries
+        ${whereSql}
+        ORDER BY
+          CASE status
+            WHEN '답변 대기' THEN 0
+            WHEN '검토 중' THEN 1
+            WHEN '답변 완료' THEN 2
+            ELSE 3
+          END,
+          created_at ASC
+      `,
+      params
+    );
+    const [countRows] = await db.query(`
+      SELECT status, COUNT(*) AS value
+      FROM inquiries
+      GROUP BY status
+    `);
+
+    res.json({
+      data: rows.map(normalizeAdminInquiry),
+      status_counts: buildInquiryStatusCounts(countRows),
+    });
+  } catch (err) {
+    res.status(500).json({ message: '문의 목록을 불러오지 못했습니다.' });
+  }
+});
+
+router.patch('/inquiries/:id/reply', async (req, res) => {
+  try {
+    const status = typeof req.body.status === 'string' ? req.body.status : '';
+    const reply = typeof req.body.reply === 'string' ? req.body.reply.trim() : '';
+
+    if (!isReplyStatus(status)) {
+      return res.status(400).json({ message: '유효하지 않은 답변 상태입니다.' });
+    }
+
+    if (!reply) {
+      return res.status(400).json({ message: '답변 내용을 입력해주세요.' });
+    }
+
+    const [result] = await db.query(
+      'UPDATE inquiries SET reply = ?, status = ?, replied_at = NOW() WHERE id = ?',
+      [reply, status, req.params.id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: '삭제된 문의입니다.' });
+    }
+
+    res.json({ message: '답변이 등록되었습니다.' });
+  } catch (err) {
+    res.status(500).json({ message: '답변을 등록하지 못했습니다.' });
   }
 });
 
