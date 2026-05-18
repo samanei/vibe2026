@@ -18,6 +18,12 @@ export const AGENDA_STATUS_COLORS: Record<string, { bg: string; text: string }> 
   '반영 어려움':   { bg: 'bg-gray-100',   text: 'text-gray-500' },
 };
 
+export const INQUIRY_STATUS_COLORS: Record<string, { bg: string; text: string }> = {
+  '답변 대기': { bg: 'bg-orange-100', text: 'text-orange-700' },
+  '검토 중': { bg: 'bg-blue-100', text: 'text-blue-700' },
+  '답변 완료': { bg: 'bg-green-100', text: 'text-green-700' },
+};
+
 export const AGENDA_TIMELINE_STEPS = [
   '접수됨',
   '검토 중',
